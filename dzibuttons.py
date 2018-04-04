@@ -118,7 +118,7 @@ def fix_buttons(new_color_index):
     cur_color_index = buttons_colors[0][0]
 
     # change color of the buttons    
-    i = 0; j = 0
+    i = 0; j = 0; steps_count = 0
     fieldNavigator.reset()
     moving_direction = direction.RIGHT
     while (moving_direction != None):
@@ -129,9 +129,13 @@ def fix_buttons(new_color_index):
             buttons_colors[i][j] = new_color_index
 
         moving_direction, i, j = fieldNavigator.navigate(moving_direction, i, j, cur_color_index)
-        
+        steps_count += 1
+        if steps_count > max_steps:
+            print 'Warning there were too many steps. The algorithm will be interrupted'
+            break
+
     # fix the buttons            
-    i = 0; j = 0
+    i = 0; j = 0; steps_count = 0
     fieldNavigator.reset()
     moving_direction = direction.RIGHT
     
@@ -141,7 +145,11 @@ def fix_buttons(new_color_index):
             fixed_buttons_count += 1
 
         moving_direction, i, j = fieldNavigator.navigate(moving_direction, i, j, new_color_index, True)
-    
+        steps_count += 1
+        if steps_count > max_steps:
+            print 'Warning there were too many steps. The algorithm will be interrupted'
+            break
+
     print 
 
 def fill_field():

@@ -191,10 +191,10 @@ def main():
         fix_buttons(pressed_key)
         display_field()
         if fixed_buttons_count == buttons_count:
-            print 'Congratulations! :-) You won!'
-            fixed_buttons_count = 0
+            print 'Congratulations! :-) You won!'            
             pressed_key = raw_input('Press Enter to continue')
             if not pressed_key:
+                fixed_buttons_count = 0; choices_count = 0
                 fill_field()
                 display_field()
             else:

@@ -179,6 +179,7 @@ display_field()
 def main():
     pressed_key = None
     choices_count = 0
+    global fixed_buttons_count
 
     while pressed_key != -1:    
         print 'Your choices count:', choices_count
@@ -191,6 +192,7 @@ def main():
         display_field()
         if fixed_buttons_count == buttons_count:
             print 'Congratulations! :-) You won!'
+            fixed_buttons_count = 0
             pressed_key = raw_input('Press Enter to continue')
             if not pressed_key:
                 fill_field()

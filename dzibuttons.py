@@ -10,7 +10,7 @@ email dzirom@gmail.com
 
 '''
 
-import random, sys
+import random, sys, time
 
 class bcolors:
     PURPLE = '\033[95m'
@@ -37,13 +37,12 @@ def display_field():
 def run_color_chooser():
     for i in range(len(colors)):
         print colors[i], (i + 1),
-    print bcolors.ENDC    
+    print bcolors.ENDC 
     strval = raw_input('Choose color (0 - exit): ')
     inputted_val = (int(strval) - 1) if strval.isdigit() else strval
     return inputted_val
 
 class FieldNavigator(object):
-
     checks_map = {}
     pos_stack = []    
 
@@ -160,12 +159,17 @@ def fill_field():
             buttons_colors[i][j] = color_index
             buttons_fixes[i][j] = False
 
+def get_elapsed_time(game_time):
+    gt = game_time
+    cur_gt = time.time()
+    return int(cur_gt - gt)
+
 # Initialization of the application
 dem_str = '10'
 dem = int(dem_str)
 max_fixes = dem * dem
 fieldNavigator = FieldNavigator()
-print 'The field is %s x %s' % (dem, dem)
+print 'The grid is %s x %s' % (dem, dem)
 
 colors_len = len(colors) - 1
 buttons_colors = [[0 for x in range(dem)] for y in range(dem)]
@@ -180,11 +184,11 @@ display_field()
 
 def main():
     pressed_key = None
-    choices_count = 0    
+    choices_count = 0; game_time = time.time()
     global fixed_buttons_count
 
-    while pressed_key != -1:    
-        print 'Your choices count:', choices_count
+    while pressed_key != -1:          
+        print 'Your choices count: %s, time: %s seconds' % (choices_count, get_elapsed_time(game_time))
         print 'Fixed buttons count: %s of %s' % (fixed_buttons_count, buttons_count)
         pressed_key = run_color_chooser()        
         if pressed_key == -1:
@@ -196,12 +200,11 @@ def main():
                 print 'Congratulations! :-) You won!'            
                 pressed_key = raw_input('Press Enter to continue')
                 if not pressed_key:
-                    fixed_buttons_count = 0; choices_count = 0
+                    fixed_buttons_count = 0; choices_count = 0; game_time = 0
                     fill_field()
                 else:
                     break        
-        display_field()
-                    
+        display_field()        
 
 if __name__ == '__main__':
     sys.exit(main())

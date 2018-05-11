@@ -38,8 +38,9 @@ def run_color_chooser():
     for i in range(len(colors)):
         print colors[i], (i + 1),
     print bcolors.ENDC    
-    chosen_color_index = int(raw_input('Choose color (0 - exit): '))
-    return chosen_color_index - 1
+    strval = raw_input('Choose color (0 - exit): ')
+    inputted_val = (int(strval) - 1) if strval.isdigit() else strval
+    return inputted_val
 
 class FieldNavigator(object):
 
@@ -155,7 +156,7 @@ def fix_buttons(new_color_index):
 def fill_field():
     for i in range(buttons_len):
         for j in range(buttons_len):
-            color_index = random.randint(0, len(colors) - 1)
+            color_index = random.randint(0, colors_len)
             buttons_colors[i][j] = color_index
             buttons_fixes[i][j] = False
 
@@ -166,6 +167,7 @@ max_fixes = dem * dem
 fieldNavigator = FieldNavigator()
 print 'The field is %s x %s' % (dem, dem)
 
+colors_len = len(colors) - 1
 buttons_colors = [[0 for x in range(dem)] for y in range(dem)]
 buttons_fixes = [[False for x in range(dem)] for y in range(dem)]
 buttons_len = len(buttons_colors)
@@ -178,7 +180,7 @@ display_field()
 
 def main():
     pressed_key = None
-    choices_count = 0
+    choices_count = 0    
     global fixed_buttons_count
 
     while pressed_key != -1:    
@@ -188,17 +190,18 @@ def main():
         choices_count += 1
         if pressed_key == -1:
             break
-        fix_buttons(pressed_key)
+        elif pressed_key >= 0 and pressed_key <= colors_len:    
+            fix_buttons(pressed_key)            
+            if fixed_buttons_count == buttons_count:
+                print 'Congratulations! :-) You won!'            
+                pressed_key = raw_input('Press Enter to continue')
+                if not pressed_key:
+                    fixed_buttons_count = 0; choices_count = 0
+                    fill_field()
+                else:
+                    break        
         display_field()
-        if fixed_buttons_count == buttons_count:
-            print 'Congratulations! :-) You won!'            
-            pressed_key = raw_input('Press Enter to continue')
-            if not pressed_key:
-                fixed_buttons_count = 0; choices_count = 0
-                fill_field()
-                display_field()
-            else:
-                break
+                    
 
 if __name__ == '__main__':
     sys.exit(main())

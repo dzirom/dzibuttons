@@ -186,11 +186,11 @@ def main():
     while pressed_key != -1:    
         print 'Your choices count:', choices_count
         print 'Fixed buttons count: %s of %s' % (fixed_buttons_count, buttons_count)
-        pressed_key = run_color_chooser()
-        choices_count += 1
+        pressed_key = run_color_chooser()        
         if pressed_key == -1:
             break
         elif pressed_key >= 0 and pressed_key <= colors_len:    
+            choices_count += 1
             fix_buttons(pressed_key)            
             if fixed_buttons_count == buttons_count:
                 print 'Congratulations! :-) You won!'            

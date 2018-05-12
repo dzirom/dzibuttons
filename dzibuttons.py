@@ -234,8 +234,8 @@ fixed_buttons_count = 0
 max_steps = 2 * buttons_count
 
 fill_field()
+fix_buttons(buttons_colors[0][0])
 display_field()
-
 
 def main():
     pressed_key = None

@@ -40,6 +40,7 @@ colors = [
 OVERSTEPS_WARNING_MESSAGE = '''Warning there were too many steps.
  The algorithm will be interrupted'''
 
+
 def get_button_view(color, isFixed):
     return colors[color], 'X' if isFixed else 'O'
 

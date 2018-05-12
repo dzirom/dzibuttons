@@ -260,7 +260,7 @@ def main():
                 if not pressed_key:
                     fixed_buttons_count = 0
                     choices_count = 0
-                    game_time = 0
+                    game_time = time.time()
                     fill_field()
                 else:
                     break
